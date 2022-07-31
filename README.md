@@ -12,6 +12,8 @@ services:
         environment:
         - "TZ=Europe/Berlin"
         - "upstream=https://dns.adguard-dns.com/dns-query"
+#        entrypoint: cloudflared
+#        command: --no-autoupdate # command to execute after cloudflared --no-autoupdate
 ```
 <br>
 Or run: 
