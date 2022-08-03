@@ -54,14 +54,33 @@ jobs:
           
       - name: Build
         uses: docker/build-push-action@v3
+        if: ${{ github.event_name != 'pull_request' }}
         with:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64,linux/amd64/v2,linux/amd64/v3,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
-          push: ${{ github.event_name != 'pull_request' }}
+          push: true
           tags: | 
            ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }}
            ghcr.io/${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ github.ref_name }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+
+      - name: Set PR-Number
+        id: pr
+        run: echo "::set-output name=pr::$(echo pr-${{ github.ref_name }} | sed "s/refs\/pull\/://g" | sed "s/\/merge//g")"
+          
+      - name: Build (PR)
+        uses: docker/build-push-action@v3
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/amd64/v2,linux/amd64/v3,linux/arm64,linux/ppc64le,linux/s390x,linux/386,linux/arm/v7,linux/arm/v6
+          push: true
+          tags: | 
+           ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ steps.pr.outputs.pr }}
+           ghcr.io/${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:${{ steps.pr.outputs.pr }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           
