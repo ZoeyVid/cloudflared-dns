@@ -12,11 +12,14 @@ RUN git clone --recursive https://github.com/cloudflare/cloudflared --branch ${C
 WORKDIR /src
 RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} make -j "$(nproc)" cloudflared
 
-FROM busybox:1.35.0
-COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+FROM alpine:3.16.2
+RUN apk add --no-cache ca-certificates bind-tools
+
 COPY --from=build /src/cloudflared /usr/local/bin/cloudflared
 
 ENV upstream=https://dns.adguard-dns.com/dns-query
 
 LABEL org.opencontainers.image.source="https://github.com/SanCraftDev/cloudflared-dns"
 ENTRYPOINT cloudflared --no-autoupdate proxy-dns --address 0.0.0.0 --upstream ${upstream}
+
+HEALTHCHECK CMD dig example.com @127.0.0.1 || exit 1
