@@ -44,8 +44,6 @@ docker run -e "TZ=Europe/Berlin" -e "upstream=https://dns.adguard-dns.com/dns-qu
 
 ## Disable resolved (used on debian)
 ```sh
-#systemctl disable --now avahi-daemon.socket
-#systemctl disable --now avahi-daemon.service
 systemctl disable --now systemd-resolved
 rm -rf /etc/resolv.conf
 echo nameserver 127.0.0.1 >> /etc/resolv.conf
