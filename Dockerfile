@@ -16,5 +16,7 @@ FROM busybox:1.35.0
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=build /src/cloudflared /usr/local/bin/cloudflared
 
+ENV upstream=https://dns.adguard-dns.com/dns-query
+
 LABEL org.opencontainers.image.source="https://github.com/SanCraftDev/cloudflared-dns"
-ENTRYPOINT cloudflared --no-autoupdate proxy-dns --upstream ${upstream}
+ENTRYPOINT cloudflared --no-autoupdate proxy-dns --address 0.0.0.0 --upstream ${upstream}
