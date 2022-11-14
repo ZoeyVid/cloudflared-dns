@@ -1,5 +1,7 @@
 FROM sancraftdev/cloudflared:latest
 
+RUN apk upgrade --no-cache
+
 ENV upstream=https://dns.adguard-dns.com/dns-query
 
 LABEL org.opencontainers.image.source="https://github.com/SanCraftDev/cloudflared-dns"
