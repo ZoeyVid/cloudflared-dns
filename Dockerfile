@@ -1,7 +1,7 @@
 FROM sancraftdev/cloudflared:latest
 
 RUN apk upgrade --no-cache
-RUN apk add --no-cache ca-certificates wget curl bind-tools
+RUN apk add --no-cache ca-certificates wget tzdata curl bind-tools
 
 ENV upstream=https://dns.adguard-dns.com/dns-query
 
