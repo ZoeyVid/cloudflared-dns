@@ -1,4 +1,4 @@
-FROM sancraftdev/cloudflared:latest
+FROM zoeyvid/cloudflared
 
 RUN apk upgrade --no-cache && \
     apk add --no-cache ca-certificates wget tzdata curl bind-tools
