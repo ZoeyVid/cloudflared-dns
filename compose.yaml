@@ -2,8 +2,7 @@ version: "3"
 services:
     cloudflared:
         container_name: cloudflared-dns
-        image: sancraftdev/cloudflared-dns:latest
-#        image: sancraftdev/cloudflared-dns:develop
+        image: zoeyvid/cloudflared-dns:latest
         restart: always
         ports:
         - "127.0.0.1:53:53"
