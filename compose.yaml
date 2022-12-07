@@ -7,6 +7,8 @@ services:
         ports:
         - "127.0.0.1:53:53"
         - "127.0.0.1:53:53/udp"
+        - "[::1]:53:53"
+        - "[::1]:53:53/udp"
         environment:
         - "TZ=Europe/Berlin"
         - "upstream=https://dns.adguard-dns.com/dns-query"
