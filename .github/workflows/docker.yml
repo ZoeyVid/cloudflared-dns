@@ -12,6 +12,7 @@ on:
     paths:
       - Dockerfile
       - .github/workflows/docker.yml
+  repository_dispatch:
   workflow_dispatch:
 
 jobs:
