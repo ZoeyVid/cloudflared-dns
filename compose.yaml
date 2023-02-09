@@ -12,8 +12,6 @@ services:
         environment:
         - "TZ=Europe/Berlin"
         - "upstream=https://dns.adguard-dns.com/dns-query"
-#        entrypoint: cloudflared
-#        command: --no-autoupdate # command to execute after cloudflared --no-autoupdate
         dns:
         - 9.9.9.9
         - 149.112.112.112
