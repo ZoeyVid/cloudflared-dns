@@ -14,7 +14,6 @@ services:
         - "[::1]:53:53/udp"
         environment:
         - "TZ=Europe/Berlin"
-        - "upstream=https://dns.adguard-dns.com/dns-query"
         dns:
         - 9.9.9.9
         - 149.112.112.112
@@ -28,6 +27,7 @@ services:
         - 94.140.15.15
         - 2a10:50c0::ad1:ff
         - 2a10:50c0::ad2:ff
+        command: --upstream https://dns.adguard-dns.com/dns-query
 ```
 
 ## Disable systemd-resolved (used on debian)
